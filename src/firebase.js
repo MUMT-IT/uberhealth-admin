@@ -4,7 +4,6 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import {ToastProgrammatic} from "buefy";
-import router from "./router";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCy-GU37EF62Xaajdb1nAw4ImteoZncgns",
@@ -31,8 +30,8 @@ auth.onAuthStateChanged(user=>{
     } else {
         ToastProgrammatic.open({
             message: "You are not logged in.",
+            type: "is-danger"
         })
-        router.push({ name: 'MainPage'})
     }
 });
 
