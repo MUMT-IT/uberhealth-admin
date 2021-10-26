@@ -1,7 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import {ToastProgrammatic} from "buefy";
+import router from "./router";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCy-GU37EF62Xaajdb1nAw4ImteoZncgns",
@@ -17,8 +20,24 @@ const app = initializeApp(firebaseConfig)
 
 const db = getFirestore(app)
 const storage = getStorage(app)
+const auth = getAuth(app)
+
+auth.onAuthStateChanged(user=>{
+    if (user) {
+        ToastProgrammatic.open({
+            message: "You have logged in.",
+            type: "is-success"
+        })
+    } else {
+        ToastProgrammatic.open({
+            message: "You are not logged in.",
+        })
+        router.push({ name: 'MainPage'})
+    }
+});
 
 export {
     storage,
     db,
+    auth
 }
