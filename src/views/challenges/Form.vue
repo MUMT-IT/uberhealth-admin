@@ -10,10 +10,15 @@
           <b-field label="ระยะเวลา">
             <b-datepicker v-model="challenge.dates" range></b-datepicker>
           </b-field>
+          <div class="buttons is-centered">
+            <b-button class="is-primary" @click="isComponentWalkingModalActive=true">
+              Add Walking Activity
+            </b-button>
+            <b-button class="is-success">
+              Submit
+            </b-button>
+          </div>
         </div>
-        <b-button class="is-primary" @click="isComponentWalkingModalActive=true">
-          Add Walking Activity
-        </b-button>
       </div>
       <pre>
         {{ challenge }}
@@ -42,6 +47,7 @@
 
 <script>
 import WalkingForm from "../../components/challenges/WalkingForm";
+import {auth} from "../../firebase";
 export default {
   name: "Form",
   components: {
@@ -54,10 +60,11 @@ export default {
         steps: 0,
       },
       challenge: {
+        creator: auth.currentUser.email,
         title: null,
         dates: [],
-        activities: [
-        ]
+        activities: [],
+        userGroups: [],
       }
     }
   },

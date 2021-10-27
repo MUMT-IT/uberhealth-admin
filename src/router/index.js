@@ -28,7 +28,17 @@ const routes = [
         path: '/challenges/form',
         name: 'ChallengeForm',
         component: () => import('../views/challenges/Form'),
-    }
+    },
+    {
+        path: '/users',
+        name: 'UserMain',
+        component: () => import('../views/users/Main'),
+    },
+    {
+        path: '/users/groups',
+        name: 'UserGroupMain',
+        component: () => import('../views/users/groups/Main'),
+    },
 ]
 
 const router = new VueRouter({

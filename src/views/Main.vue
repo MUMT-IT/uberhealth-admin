@@ -8,12 +8,12 @@
           <p class="panel-heading">
             Menu
           </p>
-          <a class="panel-block">
+          <router-link class="panel-block" :to="{ name: 'UserMain' }">
             <span class="panel-icon">
               <i class="fas fa-chevron-right" aria-hidden="true"></i>
             </span>
             Users
-          </a>
+          </router-link>
           <router-link class="panel-block" :to="{ name: 'ChallengeMain' }">
             <span class="panel-icon">
               <i class="fas fa-chevron-right" aria-hidden="true"></i>
