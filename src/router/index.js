@@ -9,7 +9,6 @@ const routes = [
         path: '/',
         name: 'MainPage',
         meta: {
-            title: 'Main Page',
             requiresAuth: true,
         },
         component: () => import('../views/Main')
@@ -22,22 +21,50 @@ const routes = [
     {
         path: '/challenges',
         name: 'ChallengeMain',
+        meta: {
+            requiresAuth: true,
+        },
         component: () => import('../views/challenges/Main'),
     },
     {
         path: '/challenges/form',
         name: 'ChallengeForm',
+        meta: {
+            requiresAuth: true,
+        },
         component: () => import('../views/challenges/Form'),
     },
     {
         path: '/users',
         name: 'UserMain',
+        meta: {
+            requiresAuth: true,
+        },
         component: () => import('../views/users/Main'),
     },
     {
         path: '/users/groups',
         name: 'UserGroupMain',
+        meta: {
+            requiresAuth: true,
+        },
         component: () => import('../views/users/groups/Main'),
+    },
+    {
+        path: '/users/groups/:groupId',
+        name: 'GroupDetail',
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../views/users/groups/Detail'),
+    },
+    {
+        path: '/users/groups/new',
+        name: 'NewGroupForm',
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../views/users/groups/NewGroup'),
     },
 ]
 

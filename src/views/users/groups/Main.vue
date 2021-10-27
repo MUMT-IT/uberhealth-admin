@@ -7,7 +7,14 @@
           <p class="panel-heading">
             Menu
           </p>
-          <router-link class="panel-block" :to="{ name: 'ChallengeForm' }">
+          <router-link class="panel-block" v-for="group in groups" :key="group.id"
+          :to="{ name: 'GroupDetail', params: { groupId: group.id }}">
+            <span class="panel-icon">
+              <i class="fas fa-chevron-right"></i>
+            </span>
+            {{ group.name }}
+          </router-link>
+          <router-link class="panel-block" :to="{ name: 'NewGroupForm' }">
             <span class="panel-icon">
               <i class="fas fa-plus-circle" aria-hidden="true"></i>
             </span>
@@ -21,8 +28,33 @@
 </template>
 
 <script>
+import { db, auth } from '../../../firebase'
+import { collection, query, where, getDocs } from "firebase/firestore";
+
 export default {
-  name: "Main"
+  name: "Main",
+  data () {
+    return {
+      groups: []
+    }
+  },
+  mounted() {
+    this.loadGroups()
+  },
+  methods: {
+    async loadGroups() {
+      const self = this
+      const q = query(collection(db, "userGroups"), where("creator", "==", auth.currentUser.email));
+
+      const querySnapshot = await getDocs(q);
+      // fat arrow function
+      querySnapshot.forEach((doc) => {
+        let data = doc.data()
+        data.id = doc.id
+        self.groups.push(data)
+      });
+    }
+  }
 }
 </script>
 
