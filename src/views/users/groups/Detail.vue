@@ -5,12 +5,13 @@
       <div class="columns">
         <div class="column">
           <h1 class="title has-text-centered">{{ group.name }}</h1>
+          <h1 class="subtitle has-text-centered">By {{ group.creator }}</h1>
         </div>
       </div>
       <div class="columns">
         <div class="column">
           <b-tabs>
-            <b-tab-item label="Add Members">
+            <b-tab-item label="Non-Members">
               <b-table
                   :data="fltUsers"
                   :columns="columns"
@@ -22,7 +23,7 @@
                 </template>
               </b-table>
               <div class="buttons is-centered">
-                <b-button @click="addMembers">Add</b-button>
+                <b-button @click="addMembers" class="is-light is-primary">Add</b-button>
               </div>
             </b-tab-item>
             <b-tab-item label="Members">
@@ -37,7 +38,7 @@
                 </template>
               </b-table>
               <div class="buttons is-centered">
-                <b-button @click="removeMembers">Remove</b-button>
+                <b-button @click="removeMembers" class="is-danger is-light">Remove</b-button>
               </div>
             </b-tab-item>
           </b-tabs>
@@ -47,7 +48,7 @@
         <div class="column">
           <div class="buttons is-centered">
             <b-button @click="$router.back()" class="is-light">Back</b-button>
-            <b-button @click="saveData" class="is-success">Update</b-button>
+            <b-button @click="saveData" class="is-success">Save</b-button>
           </div>
         </div>
       </div>

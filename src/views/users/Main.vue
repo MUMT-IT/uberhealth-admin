@@ -3,18 +3,29 @@
     <section class="section">
       <div class="columns">
         <div class="column is-one-third is-offset-4">
-          <h1 class="title has-text-centered">Challenges</h1>
+          <h1 class="title has-text-centered">Users</h1>
           <nav class="panel">
             <p class="panel-heading">
               Menu
             </p>
             <router-link class="panel-block" :to="{ name: 'UserGroupMain' }">
-            <span class="panel-icon">
-              <i class="fas fa-users-cog"></i>
-            </span>
+              <span class="panel-icon">
+                <i class="fas fa-users-cog"></i>
+              </span>
               Groups
             </router-link>
+            <a class="panel-block">
+              <span class="panel-icon">
+                <i class="fas fa-users-cog"></i>
+              </span>
+              Users
+            </a>
           </nav>
+          <div class="buttons is-centered">
+            <b-button class="is-light" @click="$router.push({ name: 'MainPage' })">
+              Back
+            </b-button>
+          </div>
         </div>
       </div>
     </section>

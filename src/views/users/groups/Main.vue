@@ -3,6 +3,7 @@
   <section class="section">
     <div class="columns">
       <div class="column is-one-third is-offset-4">
+        <h1 class="title has-text-centered">Groups</h1>
         <nav class="panel">
           <p class="panel-heading">
             Menu
@@ -21,6 +22,11 @@
             Create
           </router-link>
         </nav>
+        <div class="buttons is-centered">
+          <b-button class="is-light" @click="$router.push({ name: 'UserMain' })">
+            Back
+          </b-button>
+        </div>
       </div>
     </div>
   </section>
