@@ -3,22 +3,16 @@
   <section class="section">
     <div class="columns">
       <div class="column is-one-third is-offset-4">
-        <h1 class="title has-text-centered">Hello, Admin</h1>
+        <h1 class="title has-text-centered">Challenges</h1>
         <nav class="panel">
           <p class="panel-heading">
             Menu
           </p>
-          <a class="panel-block">
+          <router-link class="panel-block" :to="{ name: 'ChallengeForm' }">
             <span class="panel-icon">
-              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              <i class="fas fa-plus-circle" aria-hidden="true"></i>
             </span>
-            Users
-          </a>
-          <router-link class="panel-block" :to="{ name: 'ChallengeMain' }">
-            <span class="panel-icon">
-              <i class="fas fa-chevron-right" aria-hidden="true"></i>
-            </span>
-            Challenges
+            Create
           </router-link>
         </nav>
       </div>

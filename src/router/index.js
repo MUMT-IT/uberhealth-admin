@@ -18,6 +18,16 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: () => import('../views/Login')
+    },
+    {
+        path: '/challenges',
+        name: 'ChallengeMain',
+        component: () => import('../views/challenges/Main'),
+    },
+    {
+        path: '/challenges/form',
+        name: 'ChallengeForm',
+        component: () => import('../views/challenges/Form'),
     }
 ]
 
