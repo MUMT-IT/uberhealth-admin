@@ -59,7 +59,7 @@
 
 <script>
 import {db} from '../../../firebase'
-import { doc, getDoc, collection, getDocs, query, where, updateDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, where, query, updateDoc } from "firebase/firestore";
 
 export default {
   name: "Detail",
@@ -75,40 +75,46 @@ export default {
       removeRows: [],
       columns: [
         {
-          field: 'displayName',
-          label: 'Display Name',
-          width: 40,
+          field: 'userId',
+          label: 'User ID',
           numeric: false
         },
         {
-          field: 'title',
+          field: 'titleName',
           label: 'Title',
-          width: 20,
           numeric: false
         },
         {
           field: 'firstName',
           label: 'First Name',
-          width: 40,
           numeric: false
         },
         {
           field: 'lastName',
           label: 'Last Name',
-          width: 40,
           numeric: false
         },
+        {
+          field: 'gender',
+          label: 'Gender',
+          numeric: false,
+        },
+        {
+          field: 'faculty',
+          label: 'Faculty',
+          numeric: false,
+        }
       ]
     }
   },
   computed: {
     fltUsers () {
       const self = this
-      return this.users.filter((u)=>{ return self.group.members.indexOf(u.id) < 0 })
+      return this.users.filter((u)=>{ return self.group.members.indexOf(u.userId) < 0 })
     },
     members () {
       const self = this
-      return this.users.filter((u)=>{ return self.group.members.indexOf(u.id) > -1 })
+      return this.users.filter((u)=>{ return self.group.members.indexOf(u.userId) > -1 })
     }
   },
   methods: {
@@ -126,18 +132,25 @@ export default {
     },
     async loadUsers() {
       const self = this
-      const q = query(collection(db, "users"), where("isActive", "==", true));
+      const q = query(collection(db, "profiles"), where("userName", "!=", ""));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         let data = doc.data()
         data.id = doc.id
-        self.users.push(data)
+        self.users.push({
+          firstName: data.firstNameTh || data.firstNameEn,
+          lastName: data.lastNameTh || data.lastNameEn,
+          titleName: data.titleNameTh || data.titleNameEn,
+          faculty: data.facultyNameTh || data.facultyNameEn,
+          gender: data.gender,
+          userId: data.userId
+        })
       });
     },
     addMembers () {
       const self = this
       this.checkedRows.forEach((u)=>{
-        self.group.members.push(u.id)
+        self.group.members.push(u.userId)
       })
       this.checkedRows = []
     },
