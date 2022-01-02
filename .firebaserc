@@ -1,5 +1,21 @@
 {
   "projects": {
-    "default": "uberhealth-c1541"
+    "default": "uberhealth-admin"
+  },
+  "targets": {
+    "uberhealth-admin": {
+      "hosting": {
+        "admin": [
+          "uberhealth-admin"
+        ]
+      }
+    },
+    "uberhealth-c1541": {
+      "hosting": {
+        "admin": [
+          "uberhealth-admin"
+        ]
+      }
+    }
   }
 }
