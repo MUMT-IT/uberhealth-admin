@@ -27,6 +27,14 @@ const routes = [
         component: () => import('../views/challenges/Main'),
     },
     {
+        path: '/challenges/:challengeId/groups',
+        name: 'ChallengeGroups',
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../views/challenges/Groups'),
+    },
+    {
         path: '/challenges/form',
         name: 'ChallengeForm',
         meta: {

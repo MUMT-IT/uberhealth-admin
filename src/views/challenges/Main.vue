@@ -8,12 +8,13 @@
           <p class="panel-heading">
             Menu
           </p>
-          <a class="panel-block" v-for="challenge in challenges" :key="challenge.id">
+          <router-link class="panel-block" v-for="challenge in challenges" :key="challenge.id"
+                       :to="{name : 'ChallengeGroups', params: { challengeId: challenge.id}}">
             <span class="panel-icon">
               <i class="fas fa-chevron-right" aria-hidden="true"></i>
             </span>
             {{ challenge.title }}
-          </a>
+          </router-link>
           <router-link class="panel-block" :to="{ name: 'ChallengeForm' }">
             <span class="panel-icon">
               <i class="fas fa-plus-circle" aria-hidden="true"></i>

@@ -28,6 +28,8 @@ export default {
       group: {
         name: null,
         creator: auth.currentUser.email,
+        members: [],
+        admins: [auth.currentUser.email]
       }
     }
   },
