@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import { db, auth } from "../../firebase"
-import {collection, query, where, getDocs} from "firebase/firestore";
+import { db } from "../../firebase"
+import {collection, query, getDocs} from "firebase/firestore";
 
 export default {
   name: "Main",
@@ -42,8 +42,7 @@ export default {
   methods: {
     async loadData() {
       const self = this
-      const q = query(collection(db, "challenges"),
-          where("creator", "==", auth.currentUser.email));
+      const q = query(collection(db, "challenges"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(doc => {
         let data = doc.data()

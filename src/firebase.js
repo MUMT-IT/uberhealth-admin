@@ -4,6 +4,8 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import {ToastProgrammatic} from "buefy";
+// import {connectFirestoreEmulator} from "firebase/firestore";
+// import {connectStorageEmulator} from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCy-GU37EF62Xaajdb1nAw4ImteoZncgns",
@@ -20,6 +22,12 @@ const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 const storage = getStorage(app)
 const auth = getAuth(app)
+/*
+if (process.env.NODE_ENV === 'development') {
+    connectFirestoreEmulator(db, 'localhost', 9080)
+    connectStorageEmulator(storage, 'localhost', 9199)
+}
+*/
 
 auth.onAuthStateChanged(user=>{
     if (user) {

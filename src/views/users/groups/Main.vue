@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import { db, auth } from '../../../firebase'
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from '../../../firebase'
+import { collection, query, getDocs } from "firebase/firestore";
 
 export default {
   name: "Main",
