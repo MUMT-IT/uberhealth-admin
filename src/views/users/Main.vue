@@ -14,12 +14,12 @@
               </span>
               Groups
             </router-link>
-            <a class="panel-block">
+            <router-link class="panel-block" :to="{ name: 'NewUsers'}">
               <span class="panel-icon">
                 <i class="fas fa-users-cog"></i>
               </span>
               Users
-            </a>
+            </router-link>
           </nav>
           <div class="buttons is-centered">
             <b-button class="is-light" @click="$router.push({ name: 'MainPage' })">

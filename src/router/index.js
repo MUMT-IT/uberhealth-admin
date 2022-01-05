@@ -74,6 +74,14 @@ const routes = [
         },
         component: () => import('../views/users/groups/NewGroup'),
     },
+    {
+        path: '/users/new-users',
+        name: 'NewUsers',
+        meta: {
+            requiresAuth: true,
+        },
+        component: () => import('../views/users/NewUsers'),
+    },
 ]
 
 const router = new VueRouter({

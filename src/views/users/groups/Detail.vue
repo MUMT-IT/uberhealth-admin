@@ -6,6 +6,9 @@
         <div class="column">
           <h1 class="title has-text-centered">{{ group.name }}</h1>
           <h1 class="subtitle has-text-centered">By {{ group.creator }}</h1>
+          <h2 class="title is-size-4">
+            จำนวนสมาชิก {{ group.members.length }}
+          </h2>
         </div>
       </div>
       <div class="columns">
@@ -67,10 +70,12 @@ export default {
     return {
       users: [],
       group: {
+        id: null,
         name: null,
         creator: null,
         members: [],
       },
+      memberProfiles: [],
       checkedRows: [],
       removeRows: [],
       columns: [
@@ -103,18 +108,23 @@ export default {
           field: 'faculty',
           label: 'Faculty',
           numeric: false,
+          searchable: true,
+        },
+        {
+          field: 'currentGroup',
+          label: 'Current Group',
+          numeric: false,
         }
       ]
     }
   },
   computed: {
     fltUsers () {
-      const self = this
-      return this.users.filter((u)=>{ return self.group.members.indexOf(u.userId) < 0 })
+      return this.users.filter((u)=>{ return this.group.members.indexOf(u.userId) < 0 })
+          .filter(u=>{ return u.currentGroup === undefined })
     },
     members () {
-      const self = this
-      return this.users.filter((u)=>{ return self.group.members.indexOf(u.userId) > -1 })
+      return this.users.filter((u)=>{ return this.group.members.indexOf(u.userId) > -1 })
     }
   },
   methods: {
@@ -131,43 +141,52 @@ export default {
       }
     },
     async loadUsers() {
-      const self = this
       const q = query(collection(db, "profiles"), where("userName", "!=", ""));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         let data = doc.data()
         data.id = doc.id
-        self.users.push({
+        if (this.group.members.indexOf(data.userId) > -1) {
+          this.memberProfiles.push(doc.id)
+        }
+        this.users.push({
+          profileId: doc.id,
           firstName: data.firstNameTh || data.firstNameEn,
           lastName: data.lastNameTh || data.lastNameEn,
           titleName: data.titleNameTh || data.titleNameEn,
           faculty: data.facultyNameTh || data.facultyNameEn,
           gender: data.gender,
+          currentGroup: data.currentGroup,
           userId: data.userId
         })
       });
     },
     addMembers () {
-      const self = this
       this.checkedRows.forEach((u)=>{
-        self.group.members.push(u.userId)
+        this.group.members.push(u.userId)
+        this.memberProfiles.push(u.profileId)
       })
       this.checkedRows = []
     },
     removeMembers () {
-      const self = this
       this.removeRows.forEach((uid)=>{
-        let idx = self.group.members.indexOf(uid)
-        self.group.members.splice(idx, 1)
+        let idx = this.group.members.indexOf(uid)
+        this.group.members.splice(idx, 1)
+        this.memberProfiles.splice(idx, 1)
       })
       this.removeRows = []
     },
     async saveData() {
-      const self = this
       const docRef = doc(db, "userGroups", this.$route.params.groupId);
       await updateDoc(docRef, {
-        members: self.group.members
+        members: this.group.members
       });
+      for (const pid of this.memberProfiles) {
+        let pRef = doc(db, "profiles", pid);
+        await updateDoc(pRef, {
+          currentGroup: this.group.id
+        })
+      }
       this.$buefy.toast.open({
         message: 'Saved Successcully',
         type: 'is-success',
