@@ -190,7 +190,7 @@ export default {
       this.$buefy.toast.open({
         message: 'Saved Successcully',
         type: 'is-success',
-        position: 'is-bottom'
+        position: 'is-top'
       })
     }
   },
