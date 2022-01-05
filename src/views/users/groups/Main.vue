@@ -2,7 +2,7 @@
 <div>
   <section class="section">
     <div class="columns">
-      <div class="column is-one-third is-offset-4">
+      <div class="column is-two-thirds is-offset-2">
         <h1 class="title has-text-centered">Groups</h1>
         <nav class="panel">
           <p class="panel-heading">

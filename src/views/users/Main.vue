@@ -14,7 +14,7 @@
               </span>
               Groups
             </router-link>
-            <router-link class="panel-block" :to="{ name: 'NewUsers'}">
+            <router-link class="panel-block" :to="{ name: 'NewUsers' }">
               <span class="panel-icon">
                 <i class="fas fa-users-cog"></i>
               </span>

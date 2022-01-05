@@ -123,7 +123,6 @@ export default {
       });
     },
     goToDetail () {
-      console.log(this.selectedGroupId)
       this.$router.push({ name: "GroupDetail", params: { "groupId": this.selectedGroupId }})
     }
   },

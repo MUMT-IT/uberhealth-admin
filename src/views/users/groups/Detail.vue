@@ -51,7 +51,7 @@
         <div class="column">
           <div class="buttons is-centered">
             <b-button @click="$router.back()" class="is-light">Back</b-button>
-            <b-button @click="saveData" class="is-success">Save</b-button>
+            <b-button :loading="isSaving" @click="saveData" class="is-success">Save</b-button>
           </div>
         </div>
       </div>
@@ -68,6 +68,7 @@ export default {
   name: "Detail",
   data () {
     return {
+      isSaving: false,
       users: [],
       group: {
         id: null,
@@ -75,6 +76,7 @@ export default {
         creator: null,
         members: [],
       },
+      currentGroups: {},
       memberProfiles: [],
       checkedRows: [],
       removeRows: [],
@@ -103,6 +105,7 @@ export default {
           field: 'gender',
           label: 'Gender',
           numeric: false,
+          searchable: true,
         },
         {
           field: 'faculty',
@@ -110,11 +113,6 @@ export default {
           numeric: false,
           searchable: true,
         },
-        {
-          field: 'currentGroup',
-          label: 'Current Group',
-          numeric: false,
-        }
       ]
     }
   },
@@ -149,6 +147,7 @@ export default {
         if (this.group.members.indexOf(data.userId) > -1) {
           this.memberProfiles.push(doc.id)
         }
+        this.currentGroups[doc.id] = data.currentGroup
         this.users.push({
           profileId: doc.id,
           firstName: data.firstNameTh || data.firstNameEn,
@@ -177,16 +176,18 @@ export default {
       this.removeRows = []
     },
     async saveData() {
+      this.isSaving = true
       const docRef = doc(db, "userGroups", this.$route.params.groupId);
       await updateDoc(docRef, {
         members: this.group.members
       });
-      for (const pid of this.memberProfiles) {
+      for (const pid of this.memberProfiles.filter(p=>{ return p !== this.group.id })) {
         let pRef = doc(db, "profiles", pid);
         await updateDoc(pRef, {
           currentGroup: this.group.id
         })
       }
+      this.isSaving = false
       this.$buefy.toast.open({
         message: 'Saved Successcully',
         type: 'is-success',
