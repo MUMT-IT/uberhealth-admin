@@ -50,7 +50,7 @@ export default {
   methods: {
     async loadGroups() {
       const self = this
-      const q = query(collection(db, "userGroups"), where("creator", "==", auth.currentUser.email));
+      const q = query(collection(db, "userGroups"));
 
       const querySnapshot = await getDocs(q);
       // fat arrow function
